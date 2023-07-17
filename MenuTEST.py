@@ -49,7 +49,7 @@ class Menu:
     def handle_input(self, user):
         u = user
         while True:
-            user_input = input("Введите номер пункта меню: ")
+            user_input = input("Введите номер пункта меню: ").strip()
             if user_input == 'q':
                 break# Выход из программы
             elif user_input in Menues.menu_items.keys():
@@ -64,7 +64,7 @@ class Menu:
         u = user
         if command == 'main_menu_command_1':
             self.clear_terminal()
-            kit = Kit.Kit(input("Введите название набора: "))
+            kit = Kit.Kit(input("Введите название набора: ").strip())
             if kit.get_name_kit() == 'q':
                 self.display_menu()
                 return
@@ -75,7 +75,7 @@ class Menu:
             self.clear_terminal()
             u.show_kits()
             print()
-            kit_number_input = input("Введите номер желаемого набора для взаимодействия с ним: ")
+            kit_number_input = input("Введите номер желаемого набора для взаимодействия с ним: ").strip()
             if kit_number_input == 'q':
                 self.display_menu()
                 return
@@ -87,7 +87,7 @@ class Menu:
                 print()
                 self.display_kits_menu()
                 while True:
-                    user_input = input("Введите номер пункта меню: ")
+                    user_input = input("Введите номер пункта меню: ").strip()
                     if user_input == 'q':
                         self.display_menu()
                         break # Выход из программы
@@ -113,7 +113,7 @@ class Menu:
         if command == 'kit_menu_command_1':
             self.clear_terminal()
             cardi = Card.Card()
-            cardi_edit_input = input("Введите слово и его перевод: ").split()
+            cardi_edit_input = input("Введите слово и его перевод: ").strip().split()
             if (len(cardi_edit_input) == 1) and (cardi_edit_input[0] == 'q'):
                 kit_and_menu()
                 return
@@ -131,7 +131,7 @@ class Menu:
             print("Слова, содержащиеся в этом наборе:")
             u.show_element_of_kit(kit_number_input)
             print()
-            card_number_input = input("Выберете карточку, с которой хотите взаимодейсвтовать:")
+            card_number_input = input("Выберете карточку, с которой хотите взаимодейсвтовать:").strip()
             if card_number_input == 'q' :
                 self.clear_terminal()
                 self.display_kits_menu()
@@ -142,7 +142,7 @@ class Menu:
                 card_number_input = int(card_number_input)
                 self.display_cards_menu()
                 while True:
-                    user_input = input("Введите номер пункта меню: ")
+                    user_input = input("Введите номер пункта меню: ").strip()
                     if user_input == 'q':
                         self.display_kits_menu()
                         break # Выход из программы
@@ -174,7 +174,7 @@ class Menu:
             self.clear_terminal()
             self.display_mode_menu()
             while True:
-                user_input = input("Введите номер пункта меню: ")
+                user_input = input("Введите номер пункта меню: ").strip()
                 if user_input == 'q':
                     self.display_kits_menu()
                     break # Выход из программы
@@ -201,17 +201,15 @@ class Menu:
             u.get_kit_by_ID(kit_number_input).StartModule(2)
             self.display_mode_menu()
         elif command == 'mode_menu_command_3':
-            self.display_kits_menu()
-            return
-            #self.clear_terminal()
-            #u.get_kit_by_ID(kit_number_input).StartModule(1)#3
-            #self.display_mode_menu()
+            self.clear_terminal()
+            u.get_kit_by_ID(kit_number_input).StartModule(3)
+            self.display_mode_menu()
 
     def execute_command_card(self, command, kit_number_input, card_number_input, user):
         u = user
         if command == 'card_menu_command_1':
             self.clear_terminal()
-            edit_input = input("Введите измененное слово и его перевод: ").split()
+            edit_input = input("Введите измененное слово и его перевод: ").strip().split()
             if edit_input == 'q':
                 self.display_cards_menu()
                 return
