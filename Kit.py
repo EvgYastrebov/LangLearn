@@ -18,24 +18,14 @@ class Kit():
     def get_card_list(self) -> list:
         return self.__card_list
 
-    def change_name(self, new_name) -> bool:
-        old_name = self.__name
+    def change_name(self, new_name: str) -> None:
         self.__name = new_name
-        return self.__name != old_name
 
     def add_card(self, new_card: Card) -> None:
         self.__card_list.append(new_card)
 
-    def remove_card(self, card_index) -> None:
+    def remove_card(self, card_index: int) -> None:
         self.__card_list.pop(card_index)
-
-    def __progress_counter(self) -> None:
-        sum_rate = 0
-        for elem in self.__card_list:
-            rate_list = elem.get_word_rates()
-            for now_rate in rate_list:
-                sum_rate += now_rate
-            self.__progress = (sum_rate / len(self.__card_list))
 
     def get_progress(self) -> float:
         return self.__progress
@@ -43,7 +33,7 @@ class Kit():
     def reset_counter(self) -> None:
         self.__progress = 0
 
-    def StartModule(self, mode: int) -> None:  # Запуск режима
+    def start_module(self, mode: int) -> None:  # Запуск режима
         if mode == 1:
             Mod = Mode_interface.ModeWrite(self)
             print("Режим 'Письмо'", '\n')
@@ -104,3 +94,11 @@ class Kit():
             elif os.name == 'nt':  # Для Windows
                 os.system('cls')
         Mod.get_kit().__progress_counter()  # Изменение прогресса набора
+
+    def __progress_counter(self) -> None:
+        sum_rate = 0
+        for elem in self.__card_list:
+            rate_list = elem.get_word_rates()
+            for now_rate in rate_list:
+                sum_rate += now_rate
+            self.__progress = (sum_rate / len(self.__card_list))

@@ -12,8 +12,11 @@ class Card:
     def get_word_rate(self, index: int) -> float:
         return self.__word_rates[index]
 
-    def edit_card(self, word:str, translation:str) -> None:
+    def add_card(self, word: str, translation: str) -> None:
         self.__card[0] = word
         self.__card[1] = translation
         self.__word_rates = [0, 0, 0]
 
+    def edit_card(self, new_word: str, new_translation:str) -> None:
+        self.__card[0] = new_word
+        self.__card[1] = new_translation
