@@ -93,15 +93,15 @@ class Menu:
                 self.display_kits_menu()
                 while True:
                     user_input = input("Введите номер пункта меню: ").strip()
-                    if user_input == 'q' or kit_number_input == -1:
+                    if user_input == 'q':
                         self.clear_terminal()
-                        self.display_menu()
                         break # Выход из программы
                     elif user_input in Menues.kit_show_items.keys():
                         selected_item = Menues.kit_show_items[user_input]
                         print(f"Выбран пункт меню: {selected_item['name']}")
                         command = selected_item['command']
-                        self.execute_command_kit(command, kit_number_input, u)
+                        if not(self.execute_command_kit(command, kit_number_input, u)):
+                            break
                     else:
                         print("Некорректный ввод. Попробуйте снова.")
 
@@ -114,17 +114,19 @@ class Menu:
             self.display_kits_menu()
             print()
         if command == 'kit_menu_command_1':
-            self.clear_terminal()
-            cardi = Card.Card()
-            cardi_edit_input = input("Введите слово и его перевод: ").strip().split()
-            if (len(cardi_edit_input) == 1) and (cardi_edit_input[0] == 'q'):
-                kit_and_menu()
-                return
-            elif len(cardi_edit_input) < 2:
+            while True:
+                self.clear_terminal()
+                cardi_edit_input = input("Введите слово и его перевод: ").strip().split()
+                if 1 < len(cardi_edit_input) or (len(cardi_edit_input) == 1) and (cardi_edit_input[0] == 'q'):
+                    break
                 print("Неправильный ввод!")
                 time.sleep(2)
-                self.execute_command_kit('kit_menu_command_1', kit_number_input, u)
-                return
+
+            if (len(cardi_edit_input) == 1) and (cardi_edit_input[0] == 'q'):
+                kit_and_menu()
+                return True
+
+            cardi = Card.Card()
             cardi.add_card(cardi_edit_input[0],cardi_edit_input[1])
             u.get_kit_by_index(kit_number_input).add_card(cardi)
             self.clear_terminal()
@@ -207,7 +209,7 @@ class Menu:
             self.display_mode_menu()
         elif command == 'mode_menu_command_2':
             self.clear_terminal()
-            if len(u.get_kit_by_inedx(kit_number_input).get_card_list()) < 4:
+            if len(u.get_kit_by_index(kit_number_input).get_card_list()) < 4:
                 print("Ошибка! Требуется хотя бы 4 карточки в наборе!")
                 self.display_mode_menu()
                 return
@@ -235,3 +237,5 @@ class Menu:
             print("Карточка успешно удалена!")
             print()
         return True
+
+

@@ -23,6 +23,8 @@ class User:
         self.__kits.pop(index)
 
     def show_kits(self) -> None:
+        if not(self.__kits):
+            print("Список наборов пуст!")
         for i in range(len(self.__kits)):
             print(i, self.__kits[i].get_name_kit())
 
